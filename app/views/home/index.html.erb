@@ -1,0 +1,17 @@
+<h1>Parkaroo</h1>
+<p>Give us the location you want to park in:</p>
+
+<%= form_tag root_path, :method => :get do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search Near", :name => nil %>
+<% end %>
+
+<% if params[:search] %>
+	<h2>Nearby locations</h2>
+	<ul>
+		<% @nearby_locations.each do |nearby_location| %>
+			<li><%= nearby_location.address %></li>
+		<% end %>
+	</ul>
+<% end %>

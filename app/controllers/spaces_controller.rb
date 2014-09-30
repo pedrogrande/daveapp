@@ -1,10 +1,22 @@
 class SpacesController < ApplicationController
-  before_action :set_space, only: [:show, :edit, :update, :destroy]
+  before_action :set_space, only: [:add_booking_to, :show, :edit, :update, :destroy]
 
+
+  def add_booking_to
+    @date = params[:date]
+    @space.bookings << Booking.new
+    @booking = @space.bookings.last
+    @booking.update_attribute(date: @date)
+    redirect_to :back
+  end
   # GET /spaces
   # GET /spaces.json
   def index
-    @spaces = Space.all
+    if params[:search]
+      @nearby_locations = Space.near(params[:search], 5)
+    else
+      @spaces = Space.all
+    end
   end
 
   # GET /spaces/1
@@ -17,7 +29,7 @@ class SpacesController < ApplicationController
     @days_of_week.each_with_index do |day_of_week, index|
       @dates_of_week_1 << Date.today - (Date.today.wday.to_i - (index + 1))
     end
-    
+
   end
 
   # GET /spaces/new

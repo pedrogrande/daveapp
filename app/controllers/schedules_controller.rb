@@ -14,6 +14,11 @@ class SchedulesController < ApplicationController
 
   # GET /schedules/new
   def new
+    if params[:space]
+      @space = Space.find(params[:space])
+    else
+      redirect_to @space
+    end
     @schedule = Schedule.new
   end
 

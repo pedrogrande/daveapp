@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
+  get 'home/index'
+
   resources :schedules
 
   resources :bookings
 
-  resources :spaces
+  resources :spaces do
+    member do
+      get :add_booking_to
+    end
+  end
 
   resources :users
 
@@ -11,7 +17,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

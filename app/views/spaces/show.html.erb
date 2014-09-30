@@ -17,7 +17,7 @@
 	<% end %>
 </ul>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-responsive">
 	<tr>
 <% @days_of_week.each do |day_of_week| %>
 	<th width="150px"><%= day_of_week %></th>
@@ -36,6 +36,7 @@
 					
 					<% @space.schedules.where('day_of_week = ?', date.wday).each do |schedule| %>
 						<a href="#" class="btn btn-success btn-block"><%= schedule.start_time + ' - ' + schedule.end_time %></li>
+
 					<% end %>
 					
 				<% end %>
@@ -51,12 +52,20 @@
 		<% @dates_of_week_1.each_with_index do |date, index| %>
 			<td>
 				<% @space.schedules.where('day_of_week = ?', date.wday).each do |schedule| %>
-						<a href="#" class="btn btn-success btn-block"><%= schedule.start_time + ' - ' + schedule.end_time %></li>
+						
+						<%= link_to schedule.start_time + ' - ' + schedule.end_time, add_booking_to_space_path(date: date), class: 'btn btn-success btn-block' %>
 					<% end %>
 		<% end %>
+
 	</tr>
 </table>
 <br>
+<ul>
+<% @space.bookings.each do |booking| %>
+	<li><%= booking_details(booking) %></li>
+<% end %>
+</ul>
+
 <hr>
 <%= link_to 'Edit', edit_space_path(@space) %> |
 <%= link_to 'Back', spaces_path %>

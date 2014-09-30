@@ -23,10 +23,10 @@
     <%= f.label :end_time %><br>
     <%= f.text_field :end_time %>
   </div>
-  <div class="field">
-    <%= f.label :space_id %><br>
-    <%= f.text_field :space_id %>
-  </div>
+
+
+  <%= f.input :space_id, as: :hidden, input_html: { class: 'form-control', value: @space.id } %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
