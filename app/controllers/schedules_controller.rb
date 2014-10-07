@@ -1,6 +1,6 @@
 class SchedulesController < ApplicationController
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
-
+  layout 'spaces', only: :show
   # GET /schedules
   # GET /schedules.json
   def index
@@ -14,11 +14,11 @@ class SchedulesController < ApplicationController
 
   # GET /schedules/new
   def new
-    if params[:space]
-      @space = Space.find(params[:space])
-    else
-      redirect_to @space
-    end
+    # if params[:space]
+    #   @space = Space.find(params[:space])
+    # else
+    #   redirect_to @space
+    # end
     @schedule = Schedule.new
   end
 

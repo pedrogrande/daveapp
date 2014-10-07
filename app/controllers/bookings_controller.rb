@@ -14,6 +14,14 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
+    if params[:block]
+      @block = true
+    end
+    if params[:space]
+      @space = Space.find(params[:space])
+    else
+      redirect_to root_path
+    end
     @booking = Booking.new
   end
 
@@ -28,7 +36,7 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
+        format.html { redirect_to :back, notice: 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new }

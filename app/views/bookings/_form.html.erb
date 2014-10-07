@@ -31,6 +31,36 @@
     <%= f.label :user_id %><br>
     <%= f.text_field :user_id %>
   </div>
+
+  <% if @block %>
+    <%= f.input :self_booking, checked_value: true %>
+  <% end %>
+
+
+
+User clicks a button
+  Creates a self booking for the space
+
+  add_self_booking_path(space: @space.id, date: date, start_time: time1, end_time: time2)
+
+  resources :bookings do
+    member do
+      get add_self
+    end
+  end
+
+  def add_self
+    @space = Space.find(params[:space])
+    @date = params[:date].to_date
+    @start_time = params[:time].to_time
+    @booking = Booking.new(space_id: Space.find(params[:space]), date: params[:date].to_date, self_booking: true)
+    @booking.save
+
+
+
+
+
+
   <div class="actions">
     <%= f.submit %>
   </div>

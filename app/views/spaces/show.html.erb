@@ -66,6 +66,60 @@
 <% end %>
 </ul>
 
+
+
+<hr>
+<table class="table table-bordered table-responsive">
+	<tr>
+<% @days_of_week.each do |day_of_week| %>
+	<th width="150px"><%= day_of_week %></th>
+<% end %>
+	</tr>
+	<tr>
+		<% @dates_of_week_1.each_with_index do |date, index| %>
+			<td>Start time: 00:00 <br>
+			End time: 00:00 <br><button type="button" data-toggle="modal" data-target=".class<%= index %>">Edit</button>
+			</td>
+		<% end %>
+	</tr>
+
+
+</table>
+
+<hr>
+<% @dates_of_week_1.each_with_index do |date, index| %>
+<div class="modal fade form<%= index %>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <%= form_for(@schedule) do |f| %>
+	 <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.text_field :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.text_field :end_time %>
+  </div>
+
+
+  
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+    </div>
+  </div>
+</div>
+<% end %>
+
+
+
+
+
 <hr>
 <%= link_to 'Edit', edit_space_path(@space) %> |
 <%= link_to 'Back', spaces_path %>
+<script>
+$('#myModal').modal(options)
+</script>

@@ -22,6 +22,7 @@ class SpacesController < ApplicationController
   # GET /spaces/1
   # GET /spaces/1.json
   def show
+    @schedule = Schedule.new
     @date_today = Date.today
     @day_today = Time.now.wday
     @days_of_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
