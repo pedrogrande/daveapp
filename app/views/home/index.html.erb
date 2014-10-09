@@ -1,4 +1,5 @@
 <h1>Parkaroo</h1>
+
 <p>Give us the location you want to park in:</p>
 
 <%= form_tag root_path, :method => :get do %>
@@ -6,12 +7,33 @@
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search Near", :name => nil %>
 <% end %>
+<br>
+<%= form_tag root_path, :method => :get do %>
+  <p>
+    <%= date_field_tag :date, params[:date] %>
+    <%= submit_tag "Filter by date", :name => nil %>
+<% end %>
 
 <% if params[:search] %>
-	<h2>Nearby locations</h2>
+	<h2>Nearby spaces </h2>
 	<ul>
-		<% @nearby_locations.each do |nearby_location| %>
-			<li><%= nearby_location.address %></li>
+		<% @nearby_spaces.each do |nearby_space| %>
+			<li><%= nearby_space.address %></li>
 		<% end %>
 	</ul>
 <% end %>
+<% if params[:date] %>
+	<h2>Nearby spaces <%= 'available on ' + params[:date] if params[:date] %></h2>
+	<ul>
+		<% @nearby_spaces.each do |nearby_space| %>
+			<li><%= nearby_space.address %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<h2>All spaces</h2>
+<ul>
+		<% @all_spaces.each do |space| %>
+			<li><%= space.address %></li>
+		<% end %>
+	</ul>

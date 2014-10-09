@@ -33,9 +33,15 @@ class BookingsController < ApplicationController
   # POST /bookings.json
   def create
     @booking = Booking.new(booking_params)
+    @booking.user = current_user
+
+
 
     respond_to do |format|
       if @booking.save
+        if @booking.space.user == current_user
+          @booking.update_attribute('self_booking', true)
+        end
         format.html { redirect_to :back, notice: 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
       else
